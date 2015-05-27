@@ -8,7 +8,6 @@ pangoxlibs =								\
 pangoft2libs =								\
 	$(pangolibs)							\
 	$(top_builddir)/pango/libpangoft2-$(PANGO_API_VERSION).la	\
-	$(HARFBUZZ_LIBS)						\
 	$(FREETYPE_LIBS)
 pangowin32libs =							\
 	$(pangolibs)							\

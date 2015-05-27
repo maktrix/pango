@@ -48,9 +48,6 @@ typedef struct _PangoModuleClass PangoModuleClass;
 #define PANGO_MODULE(module) (G_TYPE_CHECK_INSTANCE_CAST ((module), PANGO_TYPE_MODULE, PangoModule))
 #define PANGO_IS_MODULE(module)  (G_TYPE_CHECK_INSTANCE_TYPE ((module), PANGO_TYPE_MODULE))
 
-#define MODULEFILEEXT ".modules"
-#define MODULEFILEEXT_LEN ((int) strlen (MODULEFILEEXT))
-
 typedef struct _PangoMapInfo PangoMapInfo;
 typedef struct _PangoEnginePair PangoEnginePair;
 typedef struct _PangoSubmap PangoSubmap;
@@ -582,7 +579,7 @@ read_modules (void)
 
   if (!file_str)
     {
-      files = g_new (char *, 4);
+      files = g_new (char *, 3);
 
       files[0] = g_build_filename (pango_get_sysconf_subdirectory (),
                                    "pango.modules",
@@ -591,11 +588,7 @@ read_modules (void)
                                    MODULE_VERSION,
                                    "modules.cache",
                                    NULL);
-      files[2] = g_build_filename (pango_get_lib_subdirectory (),
-                                   MODULE_VERSION,
-                                   "module-files.d",
-                                   NULL);
-      files[3] = NULL;
+      files[2] = NULL;
     }
   else
     files = pango_split_file_list (file_str);
@@ -606,40 +599,13 @@ read_modules (void)
 
   while (n-- > 0)
     {
-      GDir *dir = g_dir_open (files[n], 0, NULL);
-      if (dir)
+      module_file = g_fopen (files[n], "r");
+      if (module_file)
 	{
-	  const char *dent;
-
-	  while ((dent = g_dir_read_name (dir)))
-	    {
-	      int len = strlen (dent);
-	      if (len > MODULEFILEEXT_LEN && strcmp (dent + len - MODULEFILEEXT_LEN, MODULEFILEEXT) == 0)
-		{
-		  gchar *pathname = g_build_filename (files[n], dent, NULL);
-		  module_file = g_fopen (pathname, "r");
-		  if (module_file)
-		    {
-		      const gchar *module_file_dir = g_path_get_dirname (files[n]);
-		      process_module_file(module_file, module_file_dir);
-		      g_free ((gpointer) module_file_dir);
-		      fclose(module_file);
-		    }
-		  g_free (pathname);
-		}
-	    }
-	  g_dir_close (dir);
-	}
-      else
-	{
-	  module_file = g_fopen (files[n], "r");
-	  if (module_file)
-	    {
-	      const gchar *module_file_dir = g_path_get_dirname (files[n]);
-	      process_module_file(module_file, module_file_dir);
-	      g_free ((gpointer) module_file_dir);
-	      fclose(module_file);
-	    }
+	  const gchar *module_file_dir = g_path_get_dirname (files[n]);
+	  process_module_file (module_file, module_file_dir);
+	  g_free ((gpointer) module_file_dir);
+	  fclose(module_file);
 	}
     }
 
