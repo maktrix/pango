@@ -1,3 +1,9 @@
+pango1.0 (1.36.8-3+rpi1) jessie; urgency=low
+
+  * Fix for incorrect font weight mapping table
+
+ -- Serge Schneider <serge@raspberrypi.org>  Wed, 27 May 2015 11:16:27 +0100
+
 pango1.0 (1.36.8-3) unstable; urgency=medium
 
   * debian/control{,.in}: The testsuite depends on Cantarell. Fixes DEP8 test

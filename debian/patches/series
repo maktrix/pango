@@ -1,3 +1,4 @@
 10_scan-module-files-in-dirs.patch
 11_module-files-append-module-files-d.patch
 14_makefile_modules_ft2_link_harfbuzz.patch
+20_fix-for-incorrect-font-weight-mapping-table.patch

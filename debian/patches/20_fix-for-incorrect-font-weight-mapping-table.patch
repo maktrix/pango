@@ -1,0 +1,20 @@
+commit 9959493cff6b4fadef36592b9d27b0d8d75441d4
+Author: spl <simon@raspberrypi.org>
+Date:   Wed May 20 17:12:34 2015 +0100
+
+    Fix for incorrect font weight mapping table.
+
+--- a/pango/pangofc-fontmap.c
++++ b/pango/pangofc-fontmap.c
+@@ -2073,9 +2073,9 @@
+   else if (fc_weight <= (FC_WEIGHT_EXTRALIGHT + FC_WEIGHT_LIGHT) / 2)
+     return PANGO_WEIGHT_ULTRALIGHT;
+   else if (fc_weight <= (FC_WEIGHT_LIGHT + FC_WEIGHT_DEMILIGHT) / 2)
+-    return PANGO_WEIGHT_SEMILIGHT;
+-  else if (fc_weight <= (FC_WEIGHT_DEMILIGHT + FC_WEIGHT_BOOK) / 2)
+     return PANGO_WEIGHT_LIGHT;
++  else if (fc_weight <= (FC_WEIGHT_DEMILIGHT + FC_WEIGHT_BOOK) / 2)
++    return PANGO_WEIGHT_SEMILIGHT;
+   else if (fc_weight <= (FC_WEIGHT_BOOK + FC_WEIGHT_REGULAR) / 2)
+     return PANGO_WEIGHT_BOOK;
+   else if (fc_weight <= (FC_WEIGHT_REGULAR + FC_WEIGHT_MEDIUM) / 2)
