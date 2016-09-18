@@ -5,7 +5,7 @@ Its purpose is to illustrate a number of scripts.
 
 ---------------------------------------------------------
 Arabic	السَّلام عليكُم 
-Bengali (বাঙ্লা)	ষাগতোম
+Bengali (বাংলা) স্বাগতম
 Burmese မ္ရန္မာ
 Cherokee (ᏣᎳᎩ)	ᎣᏏᏲ
 Czech (česky)	Dobrý den
